@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from 'prop-types'
 import { Link, withRouter } from "react-router-dom";
 
+import * as constants from "../../common/constants"
+
 class Nav extends React.Component {
   constructor() {
     super()
@@ -25,7 +27,7 @@ class Nav extends React.Component {
     const { match, location, history } = this.props;
     const { collapsed } = this.state;
     const homeClass =  location.pathname === "/" ? "active" : "";
-    const dqClass = location.pathname === "/dq" ? "active" : "";
+    const dqClass = location.pathname === constants.dqPath ? "active" : "";
     const navClass = collapsed ? "collapse" : "";
 
     console.log(this.props);
@@ -47,7 +49,7 @@ class Nav extends React.Component {
                 <Link to='/' onClick={this.toggleCollapse.bind(this)}>Home</Link>
               </li>
               <li class={dqClass}>
-                <Link to="/dq" onClick={this.toggleCollapse.bind(this)}>DQ</Link>
+                <Link to={constants.dqPath} onClick={this.toggleCollapse.bind(this)}>DQ</Link>
               </li>
 
             </ul>

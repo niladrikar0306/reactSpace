@@ -1,6 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
+import * as constants from "../../common/constants"
+
 import Nav from "../../components/layout/Nav";
 
 import Home from "../home/Home";
@@ -27,7 +29,7 @@ export default class Layout extends React.Component {
 
                   <Switch>
                     <Route exact path='/' component={Home}/>
-                    <Route path='/dq' component={DQ}/>
+                    <Route path={constants.dqPath} component={DQ}/>
                   </Switch>
 
                 </div>
