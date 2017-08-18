@@ -1,15 +1,28 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux"
 
 import * as constants from "../../common/constants"
 
+import {fetchEntitlements} from "../../actions/userActions"
+
+@connect((store) => {
+  return {
+    fetching : store.layout.fetching,
+    entitlements : store.layout.entitlements
+  }
+})
 class Nav extends React.Component {
   constructor() {
     super()
     this.state = {
       collapsed: true,
     };
+  }
+
+  componentWillMount() {
+    this.props.dispatch(fetchEntitlements())
   }
 
   static propTypes = {
