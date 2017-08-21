@@ -10,7 +10,7 @@ export const fetchEntitlements = function() {
       type : "LAYOUT_ENTITLEMENT_FETCHING"
     })
 
-    axios.get(constants.DOMAIN + "/users/view/entitlements")
+    axios.get(constants.DOMAIN + "api/users/view/entitlements")
       .then((response) => {
         dispatch({
           type : "LAYOUT_ENTITLEMENT_SUCCESSFUL",

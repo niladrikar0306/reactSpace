@@ -10,7 +10,8 @@ import {fetchEntitlements} from "../../actions/userActions"
 @connect((store) => {
   return {
     fetching : store.layout.fetching,
-    entitlements : store.layout.entitlements
+    entitlements : store.layout.entitlements,
+    // navs : store.layout.navs,
   }
 })
 class Nav extends React.Component {
@@ -18,6 +19,15 @@ class Nav extends React.Component {
     super()
     this.state = {
       collapsed: true,
+      navs : [{
+        id : 1,
+        path : constants.ROOT_PATH,
+        name : constants.ROOT_NAME,
+      },{
+        id : 2,
+        path : constants.DQ_PATH,
+        name : constants.DQ_NAME,
+      }],
     };
   }
 
@@ -36,14 +46,32 @@ class Nav extends React.Component {
     this.setState({collapsed});
   }
 
-  render() {
+  setActiveClass(pathname){
     const { match, location, history } = this.props;
-    const { collapsed } = this.state;
-    const homeClass =  location.pathname === "/" ? "active" : "";
-    const dqClass = location.pathname === constants.dqPath ? "active" : "";
+    return location.pathname === pathname ? "active" : "";
+  }
+
+  render() {
+    const { match, location, history, entitlements } = this.props;
+    const { collapsed, navs } = this.state;
+    const homeClass =  location.pathname === constants.ROOT_PATH ? "active" : "";
+    const dqClass = location.pathname === constants.DQ_PATH ? "active" : "";
     const navClass = collapsed ? "collapse" : "";
 
     console.log(this.props);
+
+    const mappedItems = navs.map(i => {
+      for(const e of entitlements) {
+        if(e.name === i.name) {
+          const activeClass = location.pathname === i.path ? "active" : "";
+          return(<li key={i.id} class={activeClass}>
+            <Link to={i.path} onClick={this.toggleCollapse.bind(this)}>{i.name}</Link>
+          </li>);
+        }
+      }
+
+
+    })
 
     return (
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -58,12 +86,7 @@ class Nav extends React.Component {
           </div>
           <div class={"navbar-collapse " + navClass} id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li class={homeClass}>
-                <Link to='/' onClick={this.toggleCollapse.bind(this)}>Home</Link>
-              </li>
-              <li class={dqClass}>
-                <Link to={constants.dqPath} onClick={this.toggleCollapse.bind(this)}>DQ</Link>
-              </li>
+              {mappedItems}
 
             </ul>
           </div>
