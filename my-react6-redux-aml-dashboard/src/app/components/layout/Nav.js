@@ -11,7 +11,7 @@ import {fetchEntitlements} from "../../actions/userActions"
   return {
     fetching : store.layout.fetching,
     entitlements : store.layout.entitlements,
-    // navs : store.layout.navs,
+    navs : store.layout.navs,
   }
 })
 class Nav extends React.Component {
@@ -19,15 +19,7 @@ class Nav extends React.Component {
     super()
     this.state = {
       collapsed: true,
-      navs : [{
-        id : 1,
-        path : constants.ROOT_PATH,
-        name : constants.ROOT_NAME,
-      },{
-        id : 2,
-        path : constants.DQ_PATH,
-        name : constants.DQ_NAME,
-      }],
+
     };
   }
 
@@ -52,8 +44,8 @@ class Nav extends React.Component {
   }
 
   render() {
-    const { match, location, history, entitlements } = this.props;
-    const { collapsed, navs } = this.state;
+    const { match, location, history, entitlements, navs } = this.props;
+    const { collapsed } = this.state;
     const homeClass =  location.pathname === constants.ROOT_PATH ? "active" : "";
     const dqClass = location.pathname === constants.DQ_PATH ? "active" : "";
     const navClass = collapsed ? "collapse" : "";

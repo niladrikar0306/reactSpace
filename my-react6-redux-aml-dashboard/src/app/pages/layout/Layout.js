@@ -13,7 +13,7 @@ import DQ from "../dq/DQ";
 @connect((store) => {
   return {
     entitlements : store.layout.entitlements,
-    //navs : store.layout.navs,
+    navs : store.layout.navs,
   }
 })
 class Layout extends React.Component {
@@ -22,14 +22,15 @@ class Layout extends React.Component {
       const containerStyle = {
         marginTop: "60px"
       };
-      // const mappedRoutes = navs.map(i => {
-      //   for(const e of entitlements) {
-      //     if(e.name === i.name) {
-      //       return (<Route exact path={i.path} component={i.comp}/>)
-      //     }
-      //   }
-      //
-      // })
+      const mappedRoutes = navs.map(i => {
+        for(const e of entitlements) {
+          if(e.name === i.name) {
+
+            return (<Route key={i.id} exact path={i.path} component={i.comp}/>)
+          }
+        }
+
+      })
 
       console.log("layout : " , this.props);
       console.log("layout state : " , this.state);
@@ -46,8 +47,7 @@ class Layout extends React.Component {
                   <h1>AML Dashboard</h1>
 
                   <Switch>
-                    <Route exact path='/' component={Home}/>
-                    <Route path={constants.dqPath} component={DQ}/>
+                    {mappedRoutes}
                   </Switch>
 
                 </div>
