@@ -58,7 +58,7 @@ class Nav extends React.Component {
     const dqClass = location.pathname === constants.DQ_PATH ? "active" : "";
     const navClass = collapsed ? "collapse" : "";
 
-    console.log(this.props);
+    console.log("Nav : ", this.props);
 
     const mappedItems = navs.map(i => {
       for(const e of entitlements) {

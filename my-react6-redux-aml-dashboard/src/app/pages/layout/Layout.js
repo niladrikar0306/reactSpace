@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux"
 
 
@@ -10,13 +10,13 @@ import Nav from "../../components/layout/Nav";
 import Home from "../home/Home";
 import DQ from "../dq/DQ";
 
-// @connect((store) => {
-//   return {
-//     entitlements : store.layout.entitlements,
-//     navs : store.layout.navs,
-//   }
-// })
-export default class Layout extends React.Component {
+@connect((store) => {
+  return {
+    entitlements : store.layout.entitlements,
+    //navs : store.layout.navs,
+  }
+})
+class Layout extends React.Component {
   render() {
       const { location, navs, entitlements } = this.props;
       const containerStyle = {
@@ -31,12 +31,14 @@ export default class Layout extends React.Component {
       //
       // })
 
-      console.log("layout");
+      console.log("layout : " , this.props);
+      console.log("layout state : " , this.state);
+
 
       return (
         <div>
 
-            <Nav location={location} />
+            <Nav  />
 
             <div class="container" style={containerStyle}>
               <div class="row">
@@ -55,3 +57,5 @@ export default class Layout extends React.Component {
       )
   }
 }
+
+export default withRouter(Layout)
